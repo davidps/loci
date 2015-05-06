@@ -1,0 +1,27 @@
+mounting network shares on Ubuntu/Linux/*nix
+
+sudo mkdir /path/to/local/share
+sudo apt-get install cifs-utils
+
+sudo nano etc/nsswitch.conf
+
+this: 
+hosts: files mdns4_minimal [NOTFOUND=return] dns
+becomes:
+hosts: files mdns4_minimal [NOTFOUND=return] wins dns
+
+sudo apt-get install libnss-winbind winbind
+sudo reboot
+sudo cp /etc/fstab /etc/fstab_old (if you need to restore, run sudo mv /etc/fstab_old /etc/fstab)
+
+sudo nano ~/.smbcredentials
+username=[username]
+password=[password]
+
+id [username] (note uid + gid)
+
+sudo nano /etc/fstab
+//[IP address | ComputerName]/path/to/share /path/to/local/share cifs credentials=/home/[username]/.smbcredentials,iocharset=utf8,gid=[gid],uid=[uid],file_mode=0777,dir_mode=0777 0 0
+
+sudo mount -a
+
