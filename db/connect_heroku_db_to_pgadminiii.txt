@@ -1,0 +1,35 @@
+connect heroku postgres db in pgadminIII
+
+assuming heroku toolbelt is installed on your machine:
+navigate to the directory of your heroku app (ex: c:\soft\workspace\webapp)
+
+heroku pg:credentials DATABASE
+
+the connection info string has everything you need, as:
+
+dbname=[dbname_string]
+host=[host_string] (probably ends with .amazonaws.com)
+port=[port_xxxx]
+user=[user_string]
+password=[pw_string]
+sslmode=require
+
+in PgAdminIII, File -> Add Server...
+
+Properties Tab
+Name: Heroku (or similar)
+Host: [host_string]
+Port: [port_xxxx]
+Service: leave blank
+Maintenance DB: [dbname_string]
+Username: [user_string]
+Password: [pw_string]
+Store Password: checked
+Colour: whatever
+Group: Servers
+
+SSL Tab
+SSL: require
+
+Advanced Tab
+DB restriction: '[dbname_string]' (note single quotes)
